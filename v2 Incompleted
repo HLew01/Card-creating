@@ -1,0 +1,28 @@
+import easygui
+
+monster_cards = {
+}
+
+def display_cards():
+    text = ""
+    for name, details in monster_cards.items():
+        text += f"{name}: {details}\n"
+    easygui.textbox("Existing Cards", "Monster Cards", text)
+
+def create_card():
+    name = easygui.enterbox("Enter monster name:")
+    category = easygui.enterbox("Enter category (strength, speed, stealth, cunning):")
+    value = easygui.enterbox("Enter value (1-25):")
+
+    if name and category and value:
+        card = {"name": name, "category": category, "value": int(value)}
+        return card
+    else:
+        easygui.msgbox("All fields are required.")
+        return None
+
+if __name__ == '__main__':
+    display_cards()
+    card = create_card()
+    if card:
+        easygui.msgbox(f"Card created:\n{card}")
