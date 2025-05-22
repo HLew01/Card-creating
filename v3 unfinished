@@ -27,3 +27,14 @@ def create_card():
         card = {"category": category, "value": int(value)}
         monster_cards[name] = card
         return card
+
+else:
+        easygui.msgbox("All fields are required.")
+        return None
+
+if __name__ == '__main__':
+    display_cards()
+    card = create_card()
+    if card:
+        easygui.msgbox(f"Card created and added:\n{card}")
+        display_cards()
