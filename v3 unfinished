@@ -1,0 +1,29 @@
+import easygui
+
+monster_cards = {"Stoneling": {"category": "strength", "value": 7},
+    "Vexscream": {"category": "speed", "value": 25},
+    "Dawnmirage": {"category": "stealth", "value": 18},
+    "Blazegolem": {"category": "cunning", "value": 15},
+    "Websnake": {"category": "strength", "value": 20},
+    "Moldvine": {"category": "stealth", "value": 14},
+    "Vortexwing": {"category": "speed", "value": 21},
+    "Rotthing": {"category": "cunning", "value": 12},
+    "Froststep": {"category": "strength", "value": 14},
+    "Wisphgoul": {"category": "stealth", "value": 19}
+}
+
+def display_cards():
+    text = ""
+    for name, details in monster_cards.items():
+        text += f"{name}: {details}\n"
+    easygui.textbox("Existing Cards", "Monster Cards", text)
+
+def create_card():
+    name = easygui.enterbox("Enter monster name:")
+    category = easygui.enterbox("Enter category (strength, speed, stealth, cunning):")
+    value = easygui.enterbox("Enter value (1-25):")
+
+    if name and category and value:
+        card = {"category": category, "value": int(value)}
+        monster_cards[name] = card
+        return card
