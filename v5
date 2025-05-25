@@ -1,0 +1,55 @@
+import easygui
+
+monster_cards = {"Stoneling": {"category": "strength", "value": 7},
+    "Vexscream": {"category": "speed", "value": 25},
+    "Dawnmirage": {"category": "stealth", "value": 18},
+    "Blazegolem": {"category": "cunning", "value": 15},
+    "Websnake": {"category": "strength", "value": 20},
+    "Moldvine": {"category": "stealth", "value": 14},
+    "Vortexwing": {"category": "speed", "value": 21},
+    "Rotthing": {"category": "cunning", "value": 12},
+    "Froststep": {"category": "strength", "value": 14},
+    "Wisphgoul": {"category": "stealth", "value": 19}
+}
+
+def display_cards():
+    text = ""
+    for name, details in monster_cards.items():
+        text += f"{name}: {details}\n"
+    easygui.textbox("Existing Cards", "Monster Cards", text)
+
+def create_card():
+    name = easygui.enterbox("Enter monster name:")
+    category = easygui.enterbox("Enter category (strength, speed, stealth, cunning):")
+    value = easygui.enterbox("Enter value (1-25):")
+
+    if name and category and value:
+        card = {"category": category, "value": int(value)}
+        monster_cards[name] = card
+        return card
+    else:
+        easygui.msgbox("All fields are required.")
+        return None
+
+def search_card():
+    name = easygui.enterbox("Enter the name of the card to search for:")
+    if name in monster_cards:
+        easygui.msgbox(f"Card found:\n{name}: {monster_cards[name]}")
+    else:
+        easygui.msgbox("Card not found.")
+
+
+if __name__ == '__main__':
+    while True:
+        choices = ["Display Cards", "Add Card", "Search Card", "Exit"]
+        choice = easygui.buttonbox("Monster Card Menu", choices=choices)
+
+        if choice == "Display Cards":
+            display_cards()
+        elif choice == "Add Card":
+            create_card()
+            display_cards()  #Redisplay cards to show the updated list
+        elif choice == "Search Card":
+            search_card()
+        elif choice == "Exit":
+            break
