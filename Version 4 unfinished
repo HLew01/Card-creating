@@ -1,3 +1,17 @@
+import easygui
+
+monster_cards = {"Stoneling": {"category": "strength", "value": 7},
+    "Vexscream": {"category": "speed", "value": 25},
+    "Dawnmirage": {"category": "stealth", "value": 18},
+    "Blazegolem": {"category": "cunning", "value": 15},
+    "Websnake": {"category": "strength", "value": 20},
+    "Moldvine": {"category": "stealth", "value": 14},
+    "Vortexwing": {"category": "speed", "value": 21},
+    "Rotthing": {"category": "cunning", "value": 12},
+    "Froststep": {"category": "strength", "value": 14},
+    "Wisphgoul": {"category": "stealth", "value": 19}
+}
+
 def display_cards():
     text = ""
     for name, details in monster_cards.items():
@@ -23,3 +37,4 @@ def search_card():
         easygui.msgbox(f"Card found:\n{name}: {monster_cards[name]}")
     else:
         easygui.msgbox("Card not found.")
+
