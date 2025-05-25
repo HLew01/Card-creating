@@ -38,3 +38,17 @@ def search_card():
     else:
         easygui.msgbox("Card not found.")
 
+if __name__ == '__main__':
+    while True:
+        choices = ["Display Cards", "Add Card", "Search Card", "Exit"]
+        choice = easygui.buttonbox("Monster Card Menu", choices=choices)
+
+        if choice == "Display Cards":
+            display_cards()
+        elif choice == "Add Card":
+            create_card()
+            display_cards()  #Redisplay cards to show the updated list
+        elif choice == "Search Card":
+            search_card()
+        elif choice == "Exit":
+            break
