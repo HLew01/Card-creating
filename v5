@@ -39,7 +39,7 @@ def search_card():
         easygui.msgbox("Card not found.")
 
 def edit_card():
-    name = easygui.enterbox("Enter the name of the card to edit:")
+    name = easygui.enterbox("Entr the name of the card to edit:")
     if name in monster_cards:
         category = easygui.enterbox(f"Enter new category for {name} (strength, speed, stealth, cunning):")
         value = easygui.enterbox(f"Enter new value for {name} (1-25):")
