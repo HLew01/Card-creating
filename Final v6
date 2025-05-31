@@ -1,0 +1,126 @@
+""""This Code is Written By Hugo Lewis and is a program that 
+you can browse, create, edit, search and delete monster. What ever you wish!!!"""
+
+
+
+import easygui
+
+monster_cards = {
+    "Stoneling": {"category": "strength", "value": 7},
+    "Vexscream": {"category": "speed", "value": 25},
+    "Dawnmirage": {"category": "stealth", "value": 18},
+    "Blazegolem": {"category": "cunning", "value": 15},
+    "Websnake": {"category": "strength", "value": 20},
+    "Moldvine": {"category": "stealth", "value": 14},
+    "Vortexwing": {"category": "speed", "value": 21},
+    "Rotthing": {"category": "cunning", "value": 12},
+    "Froststep": {"category": "strength", "value": 14},
+    "Wisphgoul": {"category": "stealth", "value": 19}
+}
+# To display Main Cards (And ones made)
+def display_cards():
+    text = ""
+    for name, details in monster_cards.items():
+        text += f"{name}: {details}\n"
+    easygui.textbox("Existing Cards", "Monster Cards", text)
+#For users to create cards
+def create_card():
+    name = easygui.enterbox("Enter monster name:")
+    if not name:
+        easygui.msgbox("Name cannot be empty.")
+        return None
+#catelog
+    category = easygui.enterbox("Enter category (strength, speed, stealth, cunning):")
+    if category not in ["strength", "speed", "stealth", "cunning"]:
+        easygui.msgbox("Invalid category. Please enter a valid category.")
+        return None
+#value(card)
+    value = easygui.enterbox("Enter value (1-25):")
+    try:
+        value = int(value)
+        if not (1 <= value <= 25):
+            easygui.msgbox("Value must be between 1 and 25.")
+            return None
+    except ValueError:
+        easygui.msgbox("Value must be a number.")
+        return None
+
+    card = {"category": category, "value": value}
+    monster_cards[name] = card
+    return card
+#Searching for cards
+def search_card():
+    name = easygui.enterbox("Enter the name of the card to search for:")
+    if name in monster_cards:
+        easygui.msgbox(f"Card found:\n{name}: {monster_cards[name]}")
+    else:
+        easygui.msgbox("Card not found.")
+#Edit Previous cards that were seen or created
+def edit_card():
+    name = easygui.enterbox("Enter the name of the card to edit:")
+    if name in monster_cards:
+        category = easygui.enterbox(f"Enter new category for {name} (strength, speed, stealth, cunning):")
+        if category not in ["strength", "speed", "stealth", "cunning"]:
+            easygui.msgbox("Invalid category. Please enter a valid category.")
+            return
+#Value
+        value = easygui.enterbox(f"Enter new value for {name} (1-25):")
+        try:
+            value = int(value)
+            if not (1 <= value <= 25):
+                easygui.msgbox("Value must be between 1 and 25.")
+                return
+        except ValueError:
+            easygui.msgbox("Value must be a number.")
+            return
+#Updating
+        monster_cards[name]["category"] = category
+        monster_cards[name]["value"] = value
+        easygui.msgbox(f"Card {name} updated.")
+        display_cards()
+    else:
+        easygui.msgbox("Card not found.")
+
+def delete_card():
+    if not monster_cards:#checking for card
+        easygui.msgbox("There are no cards to delete.")
+        return
+    
+    card_list = list(monster_cards.keys()) #Selecting
+    choice = easygui.choicebox("Select the card to delete:", "Delete Card", choices=card_list)
+    #if not card
+    if choice is None:
+        return
+    #confirming deletion
+    confirm = easygui.ynbox(f"Are you sure you want to delete '{choice}'?", "Confirm Deletion")
+    if confirm:
+        del monster_cards[choice]
+        easygui.msgbox(f"Card '{choice}' deleted.")
+        display_cards()
+    else:
+        easygui.msgbox("The deletion has been cancelled.")
+#Main routine area
+if __name__ == '__main__':
+    while True:
+        choices = ["Display Cards", "Add Card", "Search Card", "Edit Card", "Delete Card", "Exit"]
+        choice = easygui.buttonbox("Monster Card Menu", choices=choices)
+        
+        if choice == "Display Cards":
+            display_cards()
+
+        elif choice == "Add Card":
+            create_card()
+            display_cards()
+
+        elif choice == "Search Card":
+            search_card()
+
+        elif choice == "Edit Card":
+            edit_card()
+            
+        elif choice == "Delete Card":
+            delete_card()
+
+        elif choice == "Exit":
+            
+            break  
